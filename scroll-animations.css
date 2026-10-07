@@ -254,31 +254,25 @@
 .sa-divider.is-visible {
     width: 100%;
 }
-
-/* ---------- Stagger ---------- */
-
-.sa-stagger > * {
-    opacity: 0;
-    transform: translateY(25px);
-    transition:
-        opacity 600ms var(--sa-ease),
-        transform 600ms var(--sa-ease);
+/* =========================================================
+   STAGGER
+   ========================================================= */
+.sa-stagger {
+    --sa-stagger: 80ms;
+    --sa-stagger-max: 800ms;
 }
 
-.sa-stagger.is-visible > * {
-    opacity: 1;
-    transform: translateY(0);
-}
+    .sa-stagger > * {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity var(--sa-duration) var(--sa-ease), transform var(--sa-duration) var(--sa-ease);
+        transition-delay: min( calc(var(--sa-stagger-index) * var(--sa-stagger)), var(--sa-stagger-max) );
+    }
 
-.sa-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
-.sa-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; }
-.sa-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; }
-.sa-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; }
-.sa-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; }
-.sa-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; }
-.sa-stagger.is-visible > *:nth-child(7) { transition-delay: 480ms; }
-.sa-stagger.is-visible > *:nth-child(8) { transition-delay: 560ms; }
-
+    .sa-stagger.is-visible > * {
+        opacity: 1;
+        transform: translateY(0);
+    }
 /* ---------- Speed ---------- */
 
 .sa-fast {

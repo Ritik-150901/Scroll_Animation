@@ -31,11 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!animatedElements.length) return;
 
     // Give staggered children their automatic indexes.
-    document.querySelectorAll(".sa-stagger").forEach(group => {
-        [...group.children].forEach((child, index) => {
-            child.style.setProperty("--i", index);
-        });
+   document.querySelectorAll(".sa-stagger").forEach(group => {
+
+    Array.from(group.children).forEach((child, index) => {
+        child.style.setProperty("--sa-stagger-index", index);
     });
+
+});
 
     // IntersectionObserver avoids continuous scroll calculations.
     const observer = new IntersectionObserver(
