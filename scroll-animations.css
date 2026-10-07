@@ -1,0 +1,371 @@
+/* =========================================================
+   Bootstrap-Style Scroll Animation Utilities
+   Lightweight / Mobile Friendly / IntersectionObserver
+   ========================================================= */
+
+:root {
+    --sa-duration: 700ms;
+    --sa-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --sa-distance: 40px;
+}
+
+/* ---------- Base ---------- */
+
+.sa {
+    opacity: 0;
+    transition:
+        opacity var(--sa-duration) var(--sa-ease),
+        transform var(--sa-duration) var(--sa-ease);
+    will-change: opacity, transform;
+}
+
+.sa.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---------- Fade ---------- */
+
+.sa-fade {
+    opacity: 0;
+}
+
+.sa-fade.is-visible {
+    opacity: 1;
+}
+
+.sa-fade-up {
+    opacity: 0;
+    transform: translateY(var(--sa-distance));
+}
+
+.sa-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sa-fade-down {
+    opacity: 0;
+    transform: translateY(calc(var(--sa-distance) * -1));
+}
+
+.sa-fade-down.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sa-fade-left {
+    opacity: 0;
+    transform: translateX(var(--sa-distance));
+}
+
+.sa-fade-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sa-fade-right {
+    opacity: 0;
+    transform: translateX(calc(var(--sa-distance) * -1));
+}
+
+.sa-fade-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ---------- Zoom / Card ---------- */
+
+.sa-zoom {
+    opacity: 0;
+    transform: scale(0.94);
+}
+
+.sa-zoom.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.sa-zoom-out {
+    opacity: 0;
+    transform: scale(1.06);
+}
+
+.sa-zoom-out.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.sa-card {
+    opacity: 0;
+    transform: translateY(35px) scale(0.97);
+}
+
+.sa-card.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ---------- Blur / Rotate ---------- */
+
+.sa-blur {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(15px);
+}
+
+.sa-blur.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+.sa-rotate {
+    opacity: 0;
+    transform: translateY(25px) rotate(2deg);
+}
+
+.sa-rotate.is-visible {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+}
+
+/* ---------- Text ---------- */
+
+.sa-text-up {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+        opacity 600ms var(--sa-ease),
+        transform 600ms var(--sa-ease);
+}
+
+.sa-text-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sa-text-left {
+    opacity: 0;
+    transform: translateX(25px);
+    transition:
+        opacity 600ms var(--sa-ease),
+        transform 600ms var(--sa-ease);
+}
+
+.sa-text-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sa-text-reveal {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transition:
+        clip-path 800ms var(--sa-ease),
+        opacity 300ms ease;
+}
+
+.sa-text-reveal.is-visible {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+}
+
+.sa-text-mask {
+    overflow: hidden;
+}
+
+.sa-text-mask > * {
+    opacity: 0;
+    transform: translateY(100%);
+    transition:
+        opacity 700ms var(--sa-ease),
+        transform 700ms var(--sa-ease);
+}
+
+.sa-text-mask.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- Underline ---------- */
+
+.sa-line {
+    position: relative;
+    display: inline-block;
+}
+
+.sa-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: currentColor;
+    transition: transform 700ms var(--sa-ease);
+}
+
+.sa-line.is-visible::after {
+    transform: scaleX(1);
+}
+
+/* ---------- Images ---------- */
+
+.sa-image {
+    overflow: hidden;
+}
+
+.sa-image img {
+    transform: scale(1.08);
+    transition: transform 1s var(--sa-ease);
+}
+
+.sa-image.is-visible img {
+    transform: scale(1);
+}
+
+.sa-image-reveal {
+    overflow: hidden;
+}
+
+.sa-image-reveal img {
+    transform: translateX(8%);
+    opacity: 0;
+    transition:
+        transform 900ms var(--sa-ease),
+        opacity 700ms ease;
+}
+
+.sa-image-reveal.is-visible img {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* ---------- Divider ---------- */
+
+.sa-divider {
+    width: 0;
+    transition: width 800ms var(--sa-ease);
+}
+
+.sa-divider.is-visible {
+    width: 100%;
+}
+
+/* ---------- Stagger ---------- */
+
+.sa-stagger > * {
+    opacity: 0;
+    transform: translateY(25px);
+    transition:
+        opacity 600ms var(--sa-ease),
+        transform 600ms var(--sa-ease);
+}
+
+.sa-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sa-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.sa-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; }
+.sa-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; }
+.sa-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; }
+.sa-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; }
+.sa-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; }
+.sa-stagger.is-visible > *:nth-child(7) { transition-delay: 480ms; }
+.sa-stagger.is-visible > *:nth-child(8) { transition-delay: 560ms; }
+
+/* ---------- Speed ---------- */
+
+.sa-fast {
+    --sa-duration: 450ms;
+}
+
+.sa-slow {
+    --sa-duration: 1000ms;
+}
+
+/* ---------- Distance ---------- */
+
+.sa-distance-sm {
+    --sa-distance: 20px;
+}
+
+.sa-distance-lg {
+    --sa-distance: 60px;
+}
+
+/* ---------- Delay ---------- */
+
+.sa-delay-1 { transition-delay: 100ms; }
+.sa-delay-2 { transition-delay: 200ms; }
+.sa-delay-3 { transition-delay: 300ms; }
+.sa-delay-4 { transition-delay: 400ms; }
+
+/* ---------- Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .sa,
+    .sa-fade,
+    .sa-fade-up,
+    .sa-fade-down,
+    .sa-fade-left,
+    .sa-fade-right,
+    .sa-zoom,
+    .sa-zoom-out,
+    .sa-card,
+    .sa-blur,
+    .sa-rotate,
+    .sa-text-up,
+    .sa-text-left,
+    .sa-text-reveal,
+    .sa-text-mask > *,
+    .sa-image img,
+    .sa-image-reveal img,
+    .sa-divider,
+    .sa-stagger > * {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        clip-path: none !important;
+        transition: none !important;
+    }
+
+    .sa-divider {
+        width: 100%;
+    }
+
+    .sa-line::after {
+        transform: scaleX(1);
+        transition: none;
+    }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 767.98px) {
+    :root {
+        --sa-duration: 550ms;
+        --sa-distance: 25px;
+    }
+
+    .sa-blur {
+        filter: none;
+    }
+
+    .sa-rotate {
+        transform: translateY(20px);
+    }
+
+    .sa-image img {
+        transform: scale(1.04);
+    }
+
+    .sa-stagger.is-visible > *:nth-child(n) {
+        transition-delay: calc((var(--i, 0)) * 60ms);
+    }
+}
